@@ -7,11 +7,6 @@ default['foreman']['path'] = '/usr/share/foreman'
 default['foreman']['version'] = 'stable'
 default['foreman']['config_path'] = '/etc/foreman'
 
-default['foreman']['use_repo'] = true
-default['foreman']['repo']['uri'] = 'http://deb.theforeman.org/'
-default['foreman']['repo']['components'] = ['stable']
-default['foreman']['repo']['key'] = 'http://deb.theforeman.org/foreman.asc'
-
 default['foreman']['plugins'] = ['foreman-libvirt', 'ruby-foreman-chef']
 
 default['foreman']['server_name'] = 'foreman.example'
@@ -62,13 +57,22 @@ default['foreman']['passenger']['prestart'] = true
 default['foreman']['passenger']['min_instances'] = 1
 default['foreman']['passenger']['start_timeout'] = 600
 
+default['foreman']['use_repo'] = true
+
 case node['platform_family']
 when 'rhel'
+  default['yum']['epel']['enabled'] = true
+  default['foreman']['yum_repository']['base_url'] = 'http://yum.theforeman.org/releases/latest/el7/x86_64/'
+  default['foreman']['yum_repository']['gpgkey'] = 'http://yum.theforeman.org/releases/latest/RPM-GPG-KEY-foreman'
+  default['foreman']['yum_repository']['plugin_url'] = 'http://yum.theforeman.org/plugins/latest/el7/x86_64/'
   default['foreman']['config']['init'] = '/etc/sysconfig/foreman'
   default['foreman']['config']['init_tpl'] = 'foreman.sysconfig.erb'
   default['foreman']['passenger']['ruby'] = '/usr/bin/ruby193-ruby'
   default['foreman']['passenger']['package'] = 'ruby193-rubygem-passenger-native'
 when 'debian'
+  default['foreman']['repo']['uri'] = 'http://deb.theforeman.org/'
+  default['foreman']['repo']['components'] = ['stable']
+  default['foreman']['repo']['key'] = 'http://deb.theforeman.org/foreman.asc'
   default['foreman']['config']['init'] = '/etc/default/foreman'
   default['foreman']['config']['init_tpl'] = 'foreman.default.erb'
   default['foreman']['passenger']['ruby'] = '/usr/bin/ruby'

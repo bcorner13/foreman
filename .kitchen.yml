@@ -8,11 +8,11 @@ provisioner:
 
 platforms:
   - name: ubuntu-14.04
+  - name: centos-7.2
 
 suites:
   - name: default
     run_list:
-      - recipe[apt]
       - recipe[foreman]
       - recipe[foreman::proxy]
     attributes:

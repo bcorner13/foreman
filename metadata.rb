@@ -7,7 +7,9 @@ long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version '0.0.1'
 
 depends 'apt'
+depends 'yum'
 depends 'apache2'
+depends 'httpd', '~>0.3'
 depends 'ark'
 depends 'bind'
 depends 'database'

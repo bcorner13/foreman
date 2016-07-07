@@ -99,7 +99,8 @@ default['foreman-proxy']['dhcp_key_secret'] = nil
 default['foreman-proxy']['dhcp_vendor'] = 'isc'
 default['foreman-proxy']['dhcp_config'] = node['dhcp']['config_file']
 default['foreman-proxy']['dhcp_leases'] = '/var/lib/dhcp/dhcpd.leases'
-default['foreman-proxy']['dhcp_interface'] = 'eth0'
+# default['foreman-proxy']['dhcp_interface'] = 'eth0'
+default['foreman-proxy']['dhcp_interface'] = node['network']['default_interface'].to_s
 net = node['network']['interfaces'][node['foreman-proxy']['dhcp_interface']]
 route = net['routes'].find { |ip| ip.key?('src') && ip['src'] == node['ipaddress'] }.dup
 default['foreman-proxy']['dhcp_subnet'] = route['destination'].split('/')[0]
@@ -173,7 +174,7 @@ default['foreman-proxy']['templates_listen_on'] = 'https'
 # Chef
 default['foreman-proxy']['chef'] = true
 default['foreman-proxy']['chef_authenticate_nodes'] = true
-default['foreman-proxy']['chef_server_url'] = 'https://chef.example.net'
+default['foreman-proxy']['chef_server_url'] = 'https://chef.fanatics.corp'
 default['foreman-proxy']['chef_smartproxy_clientname'] = 'host.example.net'
 default['foreman-proxy']['chef_smartproxy_privatekey'] = '/etc/chef/client.pem'
 default['foreman-proxy']['chef_ssl_verify'] = true
