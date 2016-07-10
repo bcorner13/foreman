@@ -79,7 +79,8 @@ when 'debian'
   default['foreman']['passenger']['package'] = 'libapache2-mod-passenger'
 end
 
-default['foreman']['ssl'] = true
+# port 443 is getting assigned to IPv6 address so disabling for now, till can figure out why.
+default['foreman']['ssl'] = false
 default['foreman']['ssl_dir'] = "#{node['foreman']['config_path']}/certs"
 default['foreman']['ssl_ca_file'] = "#{node['foreman']['ssl_dir']}/ca.crt"
 default['foreman']['ssl_ca_key_file'] = "#{node['foreman']['ssl_dir']}/ca.key"

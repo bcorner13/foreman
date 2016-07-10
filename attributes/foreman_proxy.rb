@@ -105,7 +105,7 @@ net = node['network']['interfaces'][node['foreman-proxy']['dhcp_interface']]
 route = net['routes'].find { |ip| ip.key?('src') && ip['src'] == node['ipaddress'] }.dup
 default['foreman-proxy']['dhcp_subnet'] = route['destination'].split('/')[0]
 default['foreman-proxy']['dhcp_netmask'] = net['addresses'][node['ipaddress']]['netmask']
-default['foreman-proxy']['dhcp_range'] = []
+default['foreman-proxy']['dhcp_range'] = ['10.0.2.100 10.0.2.200']
 default['foreman-proxy']['dhcp_broadcast'] = net['addresses'][node['ipaddress']]['broadcast']
 default['foreman-proxy']['dhcp_routers'] = [route['src']]
 default['foreman-proxy']['dhcp_options'] = ["domain-name \"#{node['foreman']['server_name']}\"",

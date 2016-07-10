@@ -5,6 +5,8 @@ driver_config:
 
 provisioner:
   name: chef_zero
+  driver:
+    vm_hostname: 'vagrant.example'
 
 platforms:
   - name: ubuntu-14.04
